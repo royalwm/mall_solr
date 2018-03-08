@@ -14,6 +14,7 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -25,11 +26,12 @@ import java.util.Map;
 public class SolrSerive {
     @Autowired
     private SolrMapper solrMapper;
-
+    @Value("${solr.url}")
+    private String url;
     public int addData() {
         try {
             delete();
-            SolrClient client = new HttpSolrClient.Builder("http://127.0.0.1:8983/solr/new_core").build();
+            SolrClient client = new HttpSolrClient.Builder(url).build();
             List<Items> itemList = solrMapper.getItemList();
             for (Items items : itemList) {
                 SolrInputDocument document = new SolrInputDocument();
@@ -37,6 +39,7 @@ public class SolrSerive {
                 document.addField("item_title", items.getTitle());
                 document.addField("item_sell_point", items.getSellPoint());
                 document.addField("item_image", items.getImage());
+                document.addField("item_price", items.getPrice());
                 document.addField("item_category_name", items.getCategoryName());
                 client.add(document);
             }
@@ -48,7 +51,7 @@ public class SolrSerive {
     }
 
     public ResultSearch search(String keyWord, int page, int rows) {
-        SolrClient client = new HttpSolrClient.Builder("http://127.0.0.1:8983/solr/new_core").build();
+        SolrClient client = new HttpSolrClient.Builder(url).build();
         try {
             SolrQuery query = new SolrQuery();
             query.setQuery(keyWord);
@@ -90,7 +93,7 @@ public class SolrSerive {
         }
     }
     public void delete() throws SolrServerException, IOException {
-        SolrClient client = new HttpSolrClient.Builder("http://127.0.0.1:8983/solr/new_core").build();
+        SolrClient client = new HttpSolrClient.Builder(url).build();
         client.deleteByQuery("*:*");
         client.commit();
     }

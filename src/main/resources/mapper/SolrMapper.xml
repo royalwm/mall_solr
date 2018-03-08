@@ -21,7 +21,7 @@
             b.`name` category_name
         FROM
             items a
-        LEFT JOIN items_cat b ON a.cid = b.id
+        LEFT JOIN items_category b ON a.cid = b.id
         WHERE a.`status`=1
     </select>
 </mapper>
