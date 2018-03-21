@@ -71,7 +71,7 @@
 							<div class="l-wrap">
 								<div class="pic">
 									<a class="trackref"
-										href="http://localhost:8086/item/${item.id}.html" title=""
+										href="http://localhost:8081/mall/items/${item.id}/detial" title=""
 										target="_blank"> <img src="${item.images[0]}"
 										style="display: inline" />
 									</a>
@@ -89,7 +89,7 @@
 								</div>
 								<div class="title-b" style="">
 									<a class="trackref"
-										href="http://localhost:8086/item/${item.id}.html"
+										href="http://127.0.0.1:8081/items/${item.id}/detial"
 										target="_blank">${sell_point }</a>
 								</div>
 								<div class="comment">

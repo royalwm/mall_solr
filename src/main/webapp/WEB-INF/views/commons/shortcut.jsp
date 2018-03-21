@@ -5,9 +5,9 @@
     <ul class="fr topTh">
       <li class="login" id="login">
       	<span id="loginbar" style="margin-right: 15px;">
-	      	<a href="https://passport.e3mall.cn/?returnUrl=http%3A//www.e3mall.cn/">请登录</a>
+	      	<a href="http://127.0.0.1:8082/login">请登录</a>
       	</span>
-      	<a href="https://passport.e3mall.cn/reg/?returnUrl=http%3A//www.e3mall.cn/">免费注册</a>
+      	<a href="http://127.0.0.1:8082/register">免费注册</a>
       </li>
       <!--<li id='qiyeLogin'><a href='http://www.sfme.me/login.jhtml' target='_blank' rel='nofollow'>员工福利</a></li>-->
       <li class="myOrder"><a name="sfbest_hp_hp_head_OrderList" class="trackref" href="http://home.e3mall.cn/myorder/index/" rel="nofollow">我的订单</a></li>
@@ -91,7 +91,7 @@
       <li class="d3 tShow"><a name="sfbest_hp_hp_head_weibo" class="trackref" title="关注宜立方商城微博" href="http://weibo.com/sfbest" rel="nofollow" target="_blank"><q></q></a></li>
       <li class="d4 tShow"><q></q><!--微信-->
          <div class="dd">
-         <div class="sf_wx_t">关注宜立方商城微信</div>
+         <div class="sf_wx_t">关注百货之家微信</div>
          <div class="sf_wx"></div>
         </div>
         <div class="corner">
@@ -102,6 +102,22 @@
     </ul>
     <span class="clear"></span>
   </div>
-  <script type="text/javascript" src="/js/e3mall.js"></script>
+  <script type="text/javascript" src="/js/jquery-1.5.1.min.js"></script>
   <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+  <script type="text/javascript">
+  var _ticket = $.cookie("token");
+  $.ajax({
+      url : "http://127.0.0.1:8082/user/token/" + _ticket,
+      dataType : "jsonp",
+      type : "GET",
+      success : function(data){
+          if(data!=null){
+              var username = data.username;
+              var html ="<span style='color:red;font-weight:bold'>"+ username+"</span>" + "，欢迎来到百货之家！<a href=\"http://127.0.0.1:8082/user/logout\" class=\"link-logout\">[退出]</a>";
+              $("#loginbar").html(html);
+          }
+      }
+  });
+  </script>
+  
 </div>

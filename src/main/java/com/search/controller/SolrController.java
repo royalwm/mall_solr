@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping(value = "/solr")
 public class SolrController {
@@ -26,7 +28,7 @@ public class SolrController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String search(String keyword,@RequestParam(defaultValue="1") Integer page,Model model) {
+    public String search(HttpSession session,String keyword,@RequestParam(defaultValue="1") Integer page,Model model) {
         ResultSearch search = solrSerive.search(keyword, page, pageSize);
         model.addAttribute("query",keyword);
         model.addAttribute("page",page);
