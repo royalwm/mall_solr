@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+String basePath=request.getContextPath();
+String url=request.getScheme()+"://"+request.getServerName();
+pageContext.setAttribute("url", url.substring(0,url.length()-4));
+pageContext.setAttribute("basePath", basePath);
+%>
 <!--shortcut start-->
 <jsp:include page="shortcut.jsp" />
 <!--shortcut end-->
@@ -10,7 +16,7 @@
 		</div>
     <div class="index_promo"></div>
     <div class="search">
-      <form action="http://127.0.0.1/solr" id="searchForm" name="query" method="GET">
+      <form action="<%=request.getScheme() %>://<%=request.getServerName() %>:8080/solr" id="searchForm" name="query" method="GET">
         <input type="text" class="text keyword ac_input" name="keyword" id="keyword" value="${query }" style="color: rgb(153, 153, 153);" onkeydown="javascript:if(event.keyCode==13) search_keys('searchForm');" autocomplete="off">
         <input type="button" value="" class="submit" onclick="search_keys('searchForm')">
       </form>

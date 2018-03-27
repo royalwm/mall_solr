@@ -61,6 +61,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
 		</dependency>
 		<!--jsp页面使用jstl标签 -->
 		<dependency>

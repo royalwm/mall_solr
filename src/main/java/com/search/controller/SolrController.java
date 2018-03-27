@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -23,13 +24,13 @@ public class SolrController {
     private int pageSize;
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public int addIndex() {
-        return solrSerive.addData();
+    public int addIndex(HttpServletRequest request) {
+        return solrSerive.addData(request);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String search(HttpSession session,String keyword,@RequestParam(defaultValue="1") Integer page,Model model) {
-        ResultSearch search = solrSerive.search(keyword, page, pageSize);
+    public String search(HttpServletRequest request,String keyword,@RequestParam(defaultValue="1") Integer page,Model model) {
+        ResultSearch search = solrSerive.search(request,keyword, page, pageSize);
         model.addAttribute("query",keyword);
         model.addAttribute("page",page);
         search.setPageSize(pageSize);

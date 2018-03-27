@@ -22,16 +22,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Service
 public class SolrSerive {
     @Autowired
     private SolrMapper solrMapper;
     @Value("${solr.url}")
     private String url;
-    public int addData() {
+    public int addData(HttpServletRequest request) {
         try {
-            delete();
-            SolrClient client = new HttpSolrClient.Builder(url).build();
+            delete(request);
+            SolrClient client = new HttpSolrClient.Builder(request.getScheme()+"://"+request.getServerName()+url).build();
             List<Items> itemList = solrMapper.getItemList();
             for (Items items : itemList) {
                 SolrInputDocument document = new SolrInputDocument();
@@ -50,8 +52,8 @@ public class SolrSerive {
         }
     }
 
-    public ResultSearch search(String keyWord, int page, int rows) {
-        SolrClient client = new HttpSolrClient.Builder(url).build();
+    public ResultSearch search(HttpServletRequest request,String keyWord, int page, int rows) {
+        SolrClient client = new HttpSolrClient.Builder(request.getScheme()+"://"+request.getServerName()+url).build();
         try {
             SolrQuery query = new SolrQuery();
             query.setQuery(keyWord);
@@ -92,8 +94,8 @@ public class SolrSerive {
             return null;
         }
     }
-    public void delete() throws SolrServerException, IOException {
-        SolrClient client = new HttpSolrClient.Builder(url).build();
+    public void delete(HttpServletRequest request) throws SolrServerException, IOException {
+        SolrClient client = new HttpSolrClient.Builder(request.getScheme()+"://"+request.getServerName()+url).build();
         client.deleteByQuery("*:*");
         client.commit();
     }

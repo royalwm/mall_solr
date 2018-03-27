@@ -3,6 +3,12 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+String basePath=request.getContextPath();
+String url=request.getScheme()+"://"+request.getServerName();
+pageContext.setAttribute("url", url);
+pageContext.setAttribute("basePath", basePath);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -47,13 +53,13 @@
 	                          var totalPage='${totalPages }'*1;
 	                          if((page+1)>totalPage)return;
 	                          var keyword=$(".keyword").val();
-	                           location.href="http://127.0.0.1/solr?keyword="+keyword+"&page="+(++page);   
+	                           location.href="${url}:8080/solr?keyword="+keyword+"&page="+(++page);   
 	                          });
 						  $(".prev").click("on",function(){
                               var page= '${page }'*1;
                               if((page-1)<1)return;
                               var keyword=$(".keyword").val();
-                               location.href="http://127.0.0.1/solr?keyword="+keyword+"&page="+(--page);   
+                               location.href="${url}:8080/solr?keyword="+keyword+"&page="+(--page);   
                               });
 					  })
 					</script>
@@ -71,8 +77,8 @@
 							<div class="l-wrap">
 								<div class="pic">
 									<a class="trackref"
-										href="http://localhost:8081/mall/items/${item.id}/detial" title=""
-										target="_blank"> <img src="${item.images[0]}"
+										href="${url }:8081/mall/items/${item.id}/detial" title=""
+										target="_blank"> <img src="${url }:8081${item.images[0]}"
 										style="display: inline" />
 									</a>
 								</div>
@@ -84,12 +90,12 @@
 								</div>
 								<div class="title-a">
 									<a class="trackref presaleSign_225865"
-										href="http://localhost:8086/item/${item.id}.html"
+										href="${url }:8081/mall/items/${item.id}/detial"
 										target="_blank">${item.title }</a>
 								</div>
 								<div class="title-b" style="">
 									<a class="trackref"
-										href="http://127.0.0.1:8081/items/${item.id}/detial"
+										href="${url }:8081/mall/items/${item.id}/detial"
 										target="_blank">${sell_point }</a>
 								</div>
 								<div class="comment">
@@ -107,11 +113,11 @@
 		</div>
 
 		<jsp:include page="commons/footer.jsp" />
-		<script type="text/javascript" src="/js/common.js?v=20160713"></script>
-		<script type="text/javascript" src="/js/cart.js?v=20160713"></script>
+		<script type="text/javascript" src="/js/common.js"></script>
+		<script type="text/javascript" src="/js/cart.js"></script>
 		<script type="text/javascript" src="/js/jquery.alerts.js"></script>
-		<script type="text/javascript" src="/js/NewVersion.js?v=20160713"></script>
-		<script type="text/javascript" src="/js/cookie.js?v=20160416222"></script>
-		<script type="text/javascript" src="/js/shadow.js?v=20160416"></script>
+		<script type="text/javascript" src="/js/NewVersion.js"></script>
+		<script type="text/javascript" src="/js/cookie.js"></script>
+		<script type="text/javascript" src="/js/shadow.js"></script>
 	</div>
 </html>

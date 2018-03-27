@@ -5,9 +5,9 @@
     <ul class="fr topTh">
       <li class="login" id="login">
       	<span id="loginbar" style="margin-right: 15px;">
-	      	<a href="http://127.0.0.1:8082/login">请登录</a>
+	      	<a href="<%=request.getScheme() %>://<%=request.getServerName() %>:8082/login">请登录</a>
       	</span>
-      	<a href="http://127.0.0.1:8082/register">免费注册</a>
+      	<a href="<%=request.getScheme() %>://<%=request.getServerName() %>:8082/register">免费注册</a>
       </li>
       <!--<li id='qiyeLogin'><a href='http://www.sfme.me/login.jhtml' target='_blank' rel='nofollow'>员工福利</a></li>-->
       <li class="myOrder"><a name="sfbest_hp_hp_head_OrderList" class="trackref" href="http://home.e3mall.cn/myorder/index/" rel="nofollow">我的订单</a></li>
@@ -107,13 +107,13 @@
   <script type="text/javascript">
   var _ticket = $.cookie("token");
   $.ajax({
-      url : "http://127.0.0.1:8082/user/token/" + _ticket,
+      url : "<%=request.getScheme() %>://<%=request.getServerName() %>:8082/user/token/" + _ticket,
       dataType : "jsonp",
       type : "GET",
       success : function(data){
           if(data!=null){
               var username = data.username;
-              var html ="<span style='color:red;font-weight:bold'>"+ username+"</span>" + "，欢迎来到百货之家！<a href=\"http://127.0.0.1:8082/user/logout\" class=\"link-logout\">[退出]</a>";
+              var html ="<span style='color:red;font-weight:bold'>"+ username+"</span>" + "，欢迎来到百货之家！<a href=\"<%=request.getScheme() %>://<%=request.getServerName() %>:8082/user/logout\" class=\"link-logout\">[退出]</a>";
               $("#loginbar").html(html);
           }
       }

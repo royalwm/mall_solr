@@ -15,7 +15,7 @@
     <!----menufloat------->
     <div class="menu1">
       <ul>
-            <li><a name="sfbest_Uhead_Uhead_nav_nav1" class="trackref" href="http://127.0.0.1:8081/mall">首页</a></li>
+            <li><a name="sfbest_Uhead_Uhead_nav_nav1" class="trackref" href="<%=request.getScheme() %>://<%=request.getServerName() %>:8081/mall">首页</a></li>
             				<li id="cat1">
 					<a name="sfbest_Uhead_Uhead_nav_nav2" href="http://www.e3mall.cn/fresh/" class="trackref 
 																																			">优选生鲜</a>
