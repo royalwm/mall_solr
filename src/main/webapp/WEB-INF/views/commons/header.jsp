@@ -1,11 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-String basePath=request.getContextPath();
-String url=request.getScheme()+"://"+request.getServerName();
-pageContext.setAttribute("url", url.substring(0,url.length()-4));
-pageContext.setAttribute("basePath", basePath);
-%>
 <!--shortcut start-->
 <jsp:include page="shortcut.jsp" />
 <!--shortcut end-->
@@ -27,7 +21,7 @@ pageContext.setAttribute("basePath", basePath);
       </div>
     </div>
     <div class="shopingcar" id="topCart">
-      <s class="setCart"></s><a href="http://cart.e3mall.cn" class="t" rel="nofollow">我的购物车</a><b id="cartNum">0</b>
+      <s class="setCart"></s><a href="<%=request.getScheme() %>://<%=request.getServerName() %>:8081/mall/cart/add"  class="t" rel="nofollow">我的购物车</a>
       <span class="outline"></span>
       <span class="blank"></span>
       <div id="cart_lists">
