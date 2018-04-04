@@ -20,6 +20,10 @@ pageContext.setAttribute("basePath", basePath);
 <link rel="stylesheet" type="text/css" href="/css/common.css" />
 <link rel="stylesheet" type="text/css" href="/css/jquery.alerts.css" />
 <script type="text/javascript" src="/js/jquery-1.5.1.min.js"></script>
+    <style>
+	ul li .pic{transition:all 1s;}
+	ul li .pic:hover{transform:scale(1.1)}
+</style>
 </head>
 <body>
 	<!-- header start -->
