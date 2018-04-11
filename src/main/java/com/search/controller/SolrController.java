@@ -1,7 +1,8 @@
 package com.search.controller;
 
-import com.search.entity.ResultSearch;
-import com.search.service.SolrSerive;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import com.search.entity.Items;
+import com.search.entity.ResultSearch;
+import com.search.service.SolrSerive;
 
 @Controller
 @RequestMapping(value = "/solr")
@@ -31,12 +33,23 @@ public class SolrController {
     @RequestMapping(method = RequestMethod.GET)
     public String search(HttpServletRequest request,String keyword,@RequestParam(defaultValue="1") Integer page,Model model) {
         ResultSearch search = solrSerive.search(request,keyword, page, pageSize);
-        model.addAttribute("query",keyword);
-        model.addAttribute("page",page);
-        search.setPageSize(pageSize);
-        model.addAttribute("totalPages",search.getPage());
+        if (search.getItemList().size()>0) {
+            model.addAttribute("query",keyword);
+            model.addAttribute("page",page);
+            search.setPageSize(pageSize);
+            model.addAttribute("totalPages",search.getPage());
+            model.addAttribute("recourdCount",search.getTotal());
+		}else {
+			 ResultSearch searchAll = solrSerive.search(request,"*" ,page, pageSize);
+			model.addAttribute("searchAll",searchAll.getItemList());
+	        model.addAttribute("query",keyword);
+	        model.addAttribute("page",page);
+	        searchAll.setPageSize(pageSize);
+	        model.addAttribute("totalPages",searchAll.getPage());
+	        model.addAttribute("recourdCount",searchAll.getTotal());
+	        model.addAttribute("searchAll",searchAll.getItemList());
+		}
         model.addAttribute("itemList",search.getItemList());
-        model.addAttribute("recourdCount",search.getTotal());
         return "index";
     }
 }

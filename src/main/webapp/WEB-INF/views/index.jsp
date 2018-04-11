@@ -33,7 +33,7 @@ pageContext.setAttribute("basePath", basePath);
 	<div class="linknav">
 		<div class="schArticle">
 			<a href="/article/search?keyword=%E6%9C%88%E9%A5%BC" target="_blank">找到和“<span>${query}</span>”相关的文章<span
-				id="articlenum">${totalPages }</span>篇&gt;&gt;
+				id="articlenum"><c:if test="${itemList.size()<1 }">0</c:if><c:if test="${itemList.size()>=1 }">${totalPages }</c:if></span>篇&gt;&gt;
 			</a>
 		</div>
 		<div class="breadcrumb">
@@ -76,6 +76,48 @@ pageContext.setAttribute("basePath", basePath);
 			<a name="prolist" id="prolist"></a>
 			<div class="p-list">
 				<ul class="list-all">
+						<style>
+							.m-tipbox .tip-inner {
+		   						 padding: 10px;
+		    					border: 1px solid #edd28b;
+		    					background-color: #fffdee;
+							}
+						</style>
+					<c:if test="${itemList.size()<1}">
+						<div class="m-tipbox"><div class="tip-inner"><div class="tip-text">没有搜到结果，为您推荐以下商品。</div></div></div>
+						<c:forEach items="${searchAll }" var="item">
+						<li>
+							<div class="l-wrap">
+								<div class="pic">
+									<a class="trackref"
+										href="${url }:8081/mall/items/${item.id}/detial" title=""
+										target="_blank"> <img src="${url }:8081${item.images[0]}"
+										style="display: inline" />
+									</a>
+								</div>
+								<div class="price">
+									<span><span class="p-now">￥<strong><fmt:formatNumber
+													groupingUsed="false" maxFractionDigits="2"
+													minFractionDigits="2" value="${item.price / 100 }" /></strong></span><span
+										class="p-nor"></span><span class="active" style="">直降</span></span>
+								</div>
+								<div class="title-a">
+									<a class="trackref presaleSign_225865"
+										href="${url }:8081/mall/items/${item.id}/detial"
+										target="_blank">${item.title }</a>
+								</div>
+								<div class="title-b" style="">
+									<a class="trackref"
+										href="${url }:8081/mall/items/${item.id}/detial"
+										target="_blank">${sell_point }</a>
+								</div>
+								<div class="comment">
+									<div class="owner_shop_list">自营</div>
+								</div>
+							</div>
+						</li>
+					</c:forEach>
+					</c:if>
 					<c:forEach items="${itemList }" var="item">
 						<li>
 							<div class="l-wrap">
